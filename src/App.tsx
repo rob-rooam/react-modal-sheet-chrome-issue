@@ -1,24 +1,29 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+
+import Sheet from "react-modal-sheet";
+import { useState } from "react";
 
 function App() {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+
+  const handleIsOpen = () => {
+    setIsOpen(!isOpen);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={handleIsOpen}>Open Modal</button>
+
+      <Sheet isOpen={isOpen} onClose={handleIsOpen} className="modal-sheet">
+        <Sheet.Container>
+          <Sheet.Header />
+          <Sheet.Content>
+            <input type="text" />
+          </Sheet.Content>
+        </Sheet.Container>
+
+        <Sheet.Backdrop onTap={handleIsOpen} />
+      </Sheet>
     </div>
   );
 }
